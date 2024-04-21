@@ -1,12 +1,14 @@
 <template>
-    <!-- topbar -->
-    <h1>
-        How To Install Vue 3 in Laravel 10 : ZWebCourses :)
-    </h1>
+    <div>
+        <div class="text-2xl">Top bar</div>
+       
+    </div>
     
     <!-- sidebar -->
     <div>
         <router-link to="/">Home</router-link>
         <router-link to="/about">About</router-link>
     </div>
+
+    <RouterView />
 </template>
