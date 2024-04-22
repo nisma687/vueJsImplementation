@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\StudentController;
+use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function () {
+Route::fallback(function () {
     return view('app');
-})
-->name('application');
+});
+
+

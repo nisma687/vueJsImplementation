@@ -1,13 +1,13 @@
 <template>
     <div>
         <div class="text-2xl">This is a home vue page</div>
-    <div>
+    <!-- <div>
         <CustomButton
             :bgText="buttonText"
             bgColor="bg-[#4CAF50]"
             @buttonClick="handleButtonClick"
         />
-    </div>
+    </div> -->
     </div>
 </template>
 <script setup>

@@ -2,11 +2,15 @@ export default {
   content: [
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
-    "./resources/**/*.vue"
+    "./resources/**/*.vue",
+    'node_modules/flowbite-vue/**/*.{js,jsx,ts,tsx,vue}',
+    'node_modules/flowbite/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 }
 

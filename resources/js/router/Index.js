@@ -2,8 +2,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 // import Home from '@/pages/Home.vue';
 // import About from '@/pages/About.vue';
-import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue';
+// import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue';
 
+const AuthenticatedLayout = () => import('@/layouts/AuthenticatedLayout.vue');
 const routes = [
   {
     path: '/',
@@ -18,6 +19,16 @@ const routes = [
         path: '/about',
         name: 'About',
         component: () => import('@/pages/About.vue')
+      },
+      {
+        path: 'login',
+        name: 'Login',
+        component: () => import('@/pages/Login.vue')
+      },
+      {
+        path: 'register',
+        name: 'Register',
+        component: () => import('@/pages/Register.vue')
       }
     ]
   }

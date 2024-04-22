@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>This is a vue page</h1>
-        <!-- <button>ksdjfdsjb</button> -->
+        <h1>This is a about page</h1>
+      
     </div>
 </template>
