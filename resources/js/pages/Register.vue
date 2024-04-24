@@ -76,7 +76,7 @@ const validateAndRegister = async () => {
     }
 
     try {
-        const response = await axios.post('/api/students', {
+        const response = await axios.post('/api/users', {
             name: name.value,
             email: email.value,
             password: password.value

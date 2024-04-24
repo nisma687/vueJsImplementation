@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StudentRequest;
 use App\Http\Requests\UserRequest;
-use App\Models\Student;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Auth;
+// use Tymon\JWTAuth\Exceptions\JWTException;
+// use Tymon\JWTAuth\Facades\JWTAuth;
 
-
-class StudentController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +18,10 @@ class StudentController extends Controller
     public function index()
     {
         
-        $students = Student::all();
+        $users = User::all();
         
         return response()->json([
-            'students' => $students,
+            'users' => $users,
             'message' => 'Retrieved successfully'
         ]);
     }
@@ -55,13 +54,13 @@ class StudentController extends Controller
     {
         $credentials = $request->only('email', 'password');
         try {
-            $token = JWTAuth::attempt($credentials);
+            $token = Auth::attempt($credentials);
             if (!$token) {
                 return response()->json(['error' => 'Invalid Credentials'], 400);
             }
            
         } 
-        catch (JWTException $e) {
+        catch (Exception $e) {
             return response()->json(['error' => 'Could not create token'], 500);
         }
         return response()->json(['token' => $token], 200);

@@ -25,14 +25,27 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" to="/login">
+              <router-link 
+              v-if="!isLoggedIn"
+              class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" to="/login">
                 Login
+              </router-link>
+              <router-link
+              v-else @click="logout"
+               class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" to="/dashboard">
+                
+               Log Out
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" to="/register">
+              <router-link
+              v-if="!isLoggedIn"
+               class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" to="/register">
                 Sign Up
               </router-link>
+            </li>
+            <li class="nav-item">
+              
             </li>
         </ul>
       </div>
@@ -41,6 +54,18 @@
 </template>
 <script setup>
 import { ref } from 'vue';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+
+const isLoggedIn = ref(localStorage.getItem('token') !== null);
+const router = useRouter();
+
+const logout = () => {
+  localStorage.removeItem('token');
+  isLoggedIn.value = false;
+  router.push('/login'); 
+}
+
 
 
 </script>
