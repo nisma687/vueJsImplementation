@@ -25,6 +25,14 @@
               </router-link>
             </li>
             <li class="nav-item">
+              <router-link
+              v-if="isLoggedIn"
+               class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" 
+               to="/dashboard">
+                DashBoard
+              </router-link>
+            </li>
+            <li class="nav-item">
               <router-link 
               v-if="!isLoggedIn"
               class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" to="/login">
@@ -44,9 +52,7 @@
                 Sign Up
               </router-link>
             </li>
-            <li class="nav-item">
-              
-            </li>
+            
         </ul>
       </div>
     </div>

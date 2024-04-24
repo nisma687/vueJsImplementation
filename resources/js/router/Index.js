@@ -5,6 +5,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 // import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue';
 
 const AuthenticatedLayout = () => import('@/layouts/AuthenticatedLayout.vue');
+const DashBoardLayout = () => import('@/layouts/DashBoardLayout.vue');
+
 const routes = [
   {
     path: '/',
@@ -30,9 +32,32 @@ const routes = [
         name: 'Register',
         component: () => import('@/pages/Register.vue')
       }
+      
+    ]
+  },
+  {
+    path: '/dashboard',
+    component: DashBoardLayout,
+    children: [
+      {
+        path: '',
+        name: 'DashBoard',
+        component: () => import('@/pages/DashBoard.vue')
+      },
+      {
+        path: 'profile',
+        name: 'Profile',
+        component: () => import('@/pages/Profile.vue')
+      },
+      // {
+      //   path: 'settings',
+      //   name: 'Settings',
+      //   component: () => import('@/pages/Settings.vue')
+      // },
+     
     ]
   }
-  
+ 
 ];
 
 const router = createRouter({
