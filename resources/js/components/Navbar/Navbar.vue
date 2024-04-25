@@ -67,9 +67,12 @@ const isLoggedIn = ref(localStorage.getItem('token') !== null);
 const router = useRouter();
 
 const logout = () => {
-  localStorage.removeItem('token');
-  isLoggedIn.value = false;
-  router.push('/login'); 
+    const response=axios.post('/api/logout');
+    localStorage.removeItem('token');
+    isLoggedIn.value = false;
+    console.log(response);
+    router.push('/login');
+ 
 }
 
 

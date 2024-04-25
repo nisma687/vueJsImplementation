@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login','register']]);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -37,24 +41,39 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    
+
     public function store(UserRequest $request)
-    {
-        $validatedData=$request->validated();
-        $password=bcrypt($validatedData['password']);
-        $user=User::create([
-            'name'=>$validatedData['name'],
-            'email'=>$validatedData['email'],
-            'password'=>$password
-        ]);
-        return response()->json($user,201);
+{
+    $validatedData = $request->validated();
+    if ($request->hasFile('profile_picture')) {
         
+        $profilePicturePath = $request->file('profile_picture')->store('public/uploads');
+      
+        $profilePicturePath = str_replace('public/', '', $profilePicturePath);
+    } else {
+        $profilePicturePath = null;
     }
+
+    $password = bcrypt($validatedData['password']);
+    
+ 
+    $user = User::create([
+        'name' => $validatedData['name'],
+        'email' => $validatedData['email'],
+        'password' => $password,
+        'profile_picture' => $profilePicturePath,
+    ]);
+
+    return response()->json($user, 201);
+}
 
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
         try {
             $token = Auth::attempt($credentials);
+          
             if (!$token) {
                 return response()->json(['error' => 'Invalid Credentials'], 400);
             }
@@ -63,7 +82,29 @@ class UserController extends Controller
         catch (Exception $e) {
             return response()->json(['error' => 'Could not create token'], 500);
         }
-        return response()->json(['token' => $token], 200);
+        $user = Auth::user();
+        return response()->json([
+                'status' => 'success',
+                'user' => $user,
+                'authorisation' => [
+                    'token' => $token,
+                    'type' => 'bearer',
+                ]
+            ]);
+    }
+    public function logout()
+    {
+        Auth::logout();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Successfully logged out',
+        ]);
+    }
+
+    public function getCurrentUser()
+    {
+        $user = Auth::user();
+        return response()->json($user);
     }
 
     /**

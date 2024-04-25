@@ -55,14 +55,12 @@ const validateAndLogin = async () => {
             email: email.value,
             password: password.value
         });
-        console.log(response.data.token);
-        const token = response.data.token;
+        console.log(response.data.authorisation.token); // Access token from the 'authorisation' object
+        const token = response.data.authorisation.token; // Access token from the 'authorisation' object
         if(token){
             localStorage.setItem('token', token);
             window.location.href = '/';
-        }
-        else {
-           
+        } else {
             console.error('Token not received');
         }
     } catch (error) {
