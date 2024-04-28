@@ -49,6 +49,12 @@ const routes = [
         name: 'Profile',
         component: () => import('@/pages/Profile.vue')
       },
+      {
+        path:"edit-profile",
+        name:"EditProfile",
+        component: () => import('@/pages/EditProfile.vue')
+
+      }
       // {
       //   path: 'settings',
       //   name: 'Settings',

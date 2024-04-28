@@ -143,7 +143,7 @@ const validateAndRegister = async () => {
             formData.append(key, form.value[key]);
         }
 
-        const response = await axios.post('/api/users', formData, {
+        const response = await axios.post('/api/register', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -151,7 +151,7 @@ const validateAndRegister = async () => {
 
        
         if (response.status) {
-            console.log('here');
+            // console.log('here');
             showSuccessMessage.value = true;
             
             showErrorMessage.value = false;

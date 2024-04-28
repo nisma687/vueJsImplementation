@@ -21,6 +21,7 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'profile_picture'
     ];
 
     /**
@@ -60,6 +61,11 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function getProfilePictureAttribute($value)
+    {
+        return url('storage/' . $value);
     }
 
 }

@@ -43,7 +43,8 @@ class UserController extends Controller
      */
     
 
-    public function store(UserRequest $request)
+     public function store(Request $request){}
+    public function register(UserRequest $request)
 {
     $validatedData = $request->validated();
     if ($request->hasFile('profile_picture')) {
@@ -121,14 +122,22 @@ class UserController extends Controller
     public function edit(string $id)
     {
         //
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function updateData(UserRequest $request, string $id)
     {
-        //
+        $validatedData = $request->validated();
+        $user = User::find($id);
+        $user->update($validatedData);
+        return response()->json([
+            'user' => $user,
+            'message' => 'User updated successfully'
+        
+        ]);
     }
 
     /**

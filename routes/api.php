@@ -19,11 +19,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::apiResource('users', UserController::class)->except(['store']);
-Route::post('users', [UserController::class, 'store']);
+Route::apiResource('users', UserController::class);
+
+Route::post('users/update/{id}', [UserController::class, 'updateData']);
+
 // additional route for login
 Route::post('login', [UserController::class, 'login']);
 Route::get('/current-user', [UserController::class, 'getCurrentUser']);
 Route::post('logout', [UserController::class, 'logout']);
+Route::post('register', [UserController::class, 'register']);
 
 
