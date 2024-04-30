@@ -131,8 +131,27 @@ class UserController extends Controller
     public function updateData(UserRequest $request, string $id)
     {
         $validatedData = $request->validated();
+        
         $user = User::find($id);
-        $user->update($validatedData);
+
+        $user->update([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+        ]);
+
+        if ($request->hasFile('profile_picture') && $request->file('profile_picture')) {
+            
+            $profilePicturePath = $request->file('profile_picture')->store('public/uploads');
+          
+            $profilePicturePath = str_replace('public/', '', $profilePicturePath);
+
+            $user->update([
+                'profile_picture' => $profilePicturePath,
+            ]);
+        } else {
+            $profilePicturePath = null;
+        }
+
         return response()->json([
             'user' => $user,
             'message' => 'User updated successfully'

@@ -95,11 +95,17 @@ onMounted(async () => {
 });
 const editData = async () => {
     const token = localStorage.getItem('token');
+
+    // form.value.profile_picture check type of file if string or file
+    form.value.profile_picture = form.value.profile_picture instanceof File ? form.value.profile_picture : null;
+
     const formData = new FormData();
     formData.append('name', form.value.name);
     formData.append('email', form.value.email);
-    formData.append('profile_picture', form.value.previewImage);
-    console.log('id:', id.value);
+    if (form.value.profile_picture != null) {
+        formData.append('profile_picture', form.value.profile_picture);
+
+    }
     try {
         const response = await axios.post(`${apiBaseUrl}/api/users/update/${id.value}`, formData, {  
             headers: {
@@ -108,7 +114,7 @@ const editData = async () => {
             }
         });
         console.log('Edit profile response:', response.data);
-        router.push('/profile');
+        // router.push('/profile');
     } catch (error) {
         console.error('Error editing profile:', error);
     }
