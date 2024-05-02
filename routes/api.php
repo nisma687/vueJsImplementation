@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -28,5 +29,8 @@ Route::post('login', [UserController::class, 'login']);
 Route::get('/current-user', [UserController::class, 'getCurrentUser']);
 Route::post('logout', [UserController::class, 'logout']);
 Route::post('register', [UserController::class, 'register']);
+Route::apiResource('courses', CourseController::class);
+Route::post('courses/update-course/{id}', [CourseController::class, 'updateData']);
+// Route::middleware(['auth', 'admin'])->post('/update-course/{id}', [CourseController::class, 'updateData'])->name('update-course');
 
 

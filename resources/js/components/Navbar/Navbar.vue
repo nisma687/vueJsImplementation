@@ -20,8 +20,8 @@
             </li>
             <li class="nav-item">
               <router-link class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-               to="/about">
-                About
+               to="/all-cources">
+               Courses
               </router-link>
             </li>
             <li class="nav-item">
@@ -30,6 +30,14 @@
                class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" 
                to="/dashboard">
                 DashBoard
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link
+              v-if="isLoggedIn"
+               class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" 
+               to="/create-course">
+               Create Course
               </router-link>
             </li>
             <li class="nav-item">
@@ -69,6 +77,7 @@ const router = useRouter();
 const logout = () => {
     const response=axios.post('/api/logout');
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     isLoggedIn.value = false;
     console.log(response);
     router.push('/login');

@@ -21,7 +21,8 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
-        'profile_picture'
+        'profile_picture',
+        'role'
     ];
 
     /**
@@ -66,6 +67,13 @@ class User extends Authenticatable implements JWTSubject
     public function getProfilePictureAttribute($value)
     {
         return url('storage/' . $value);
+    }
+    public function isAdmin()
+    {
+        if ($this->role === 'admin') {
+            return true;
+        }
+        return false;
     }
 
 }

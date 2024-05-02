@@ -60,6 +60,13 @@
                     bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-1/2 required"/>
             <div v-if="showErrorPassword" class="text-red-600 text-sm mt-1">Password is required</div>
         </div>
+        <div class="mb-3 pt-0 text-center">
+            <select v-model="form.role" class="w-1/2">
+                <option value="student">student</option>
+                <option value="teacher">teacher</option>
+                <option value="admin">admin</option>
+            </select>
+        </div>
       
         <div class="mb-2 pt-0 text-center">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -88,6 +95,7 @@ const form = ref({
     email: '',
     password: '',
     profile_picture: '',
+    role:'',
 });
 
 const resetForm = () => {
@@ -96,6 +104,7 @@ const resetForm = () => {
         email: '',
         password: '',
         profile_picture: '',
+        role:'',
     };
     previewImage.value = '';
     // Clear the file input element

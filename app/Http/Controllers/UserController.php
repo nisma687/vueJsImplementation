@@ -64,6 +64,7 @@ class UserController extends Controller
         'email' => $validatedData['email'],
         'password' => $password,
         'profile_picture' => $profilePicturePath,
+        'role' => $validatedData['role']
     ]);
 
     return response()->json($user, 201);

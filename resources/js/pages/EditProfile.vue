@@ -58,6 +58,7 @@ const apiBaseUrl='http://127.0.0.1:8000';
 const user = ref(null);
 const id=ref(null);
 const previewImage = ref('');
+const router = useRouter();
 const handleFileChange = (event) => {
     form.value.profile_picture = event.target.files[0];
     const reader = new FileReader();
@@ -92,8 +93,8 @@ onMounted(async () => {
     } catch (error) {
         console.error('Error fetching user data:', error);
     }
-});
-const editData = async () => {
+    });
+    const editData = async () => {
     const token = localStorage.getItem('token');
 
     // form.value.profile_picture check type of file if string or file
@@ -114,6 +115,9 @@ const editData = async () => {
             }
         });
         console.log('Edit profile response:', response.data);
+        if (response.status) {
+            router.push('/dashboard/profile');
+        }
         // router.push('/profile');
     } catch (error) {
         console.error('Error editing profile:', error);

@@ -57,8 +57,10 @@ const validateAndLogin = async () => {
         });
         console.log(response.data.authorisation.token); // Access token from the 'authorisation' object
         const token = response.data.authorisation.token; // Access token from the 'authorisation' object
+        const user = response.data.user; // User object
         if(token){
             localStorage.setItem('token', token);
+            localStorage.setItem('user', JSON.stringify(user));
             window.location.href = '/';
         } else {
             console.error('Token not received');
