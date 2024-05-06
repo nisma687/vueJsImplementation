@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EditProfileRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Exception;
@@ -129,7 +130,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function updateData(UserRequest $request, string $id)
+    public function updateData(EditProfileRequest $request, string $id)
     {
         $validatedData = $request->validated();
         

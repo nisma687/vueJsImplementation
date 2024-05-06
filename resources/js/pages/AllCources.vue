@@ -4,7 +4,9 @@
     </div>
   <div class="m-5 p-2 grid lg:grid-cols-3 lg:gap-5 md:grid-cols-2 gap-2">
     <div
-     v-for="course in courses" :key="course.id">
+     v-for="course in courses"
+    
+      :key="course.id">
      <fwb-card
      img-alt="Desk"
         v-if="course.image"
@@ -28,13 +30,12 @@
         </div>
         <!-- <div>{{ course.id }}</div> -->
         <div class="mt-4 items-center">
-            <router-link 
-            :to="{ name: 'UpdateCourse', params: { id: course.id } }"
-            class="bg-blue-500 button hover:bg-blue-700 text-white button font-bold py-1 px-2 rounded mt-2"
-            @click="handleUpdate(course.id)"
+            <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            @click="handleAddToCart(course.id)"
             >
-                Update Course
-            </router-link>
+                Enroll Course
+        </button>
     
        </div>
         
@@ -63,6 +64,33 @@ const isLoggedIn=()=>{
     }
     return false;
 }
+const StudentId=JSON.parse(localStorage.getItem('user'));
+console.log(StudentId.id);
+const handleAddToCart = async (courseId) => {
+    if (!isLoggedIn()) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please log in to add the course to cart!',
+        });
+        router.push({ name: 'Login' });
+    }
+    try {
+        const response = await axiosInstance.post('student-courses', {
+            course_id: courseId,
+            student_id: StudentId.id,
+           
+        });
+        console.log(response.data);
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Course added to cart successfully!',
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
 const handleUpdate = (courseId) => {
     if (!isLoggedIn()) {
         Swal.fire({
@@ -77,7 +105,7 @@ const dataRetrive= async()=>{
     try {
         const response = await axiosInstance.get('courses');
         console.log(response.data.courses);
-        courses.value = response.data.courses;
+        courses.value = response.data.courses.filter(course => !course.deleted_at)
         
     } catch (error) {
         console.error(error);

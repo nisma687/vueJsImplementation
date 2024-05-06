@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentCourseController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,5 +33,10 @@ Route::post('register', [UserController::class, 'register']);
 Route::apiResource('courses', CourseController::class);
 Route::post('courses/update-course/{id}', [CourseController::class, 'updateData']);
 // Route::middleware(['auth', 'admin'])->post('/update-course/{id}', [CourseController::class, 'updateData'])->name('update-course');
+Route::post('courses/restore/{id}', [CourseController::class, 'restore']);
+Route::post('courses/deleteAndRestore/{id}', [CourseController::class, 'DeleteAndRestore']);
 
+// studentCourse routes
+Route::apiResource('student-courses', StudentCourseController::class);
+Route::get('student-courses/getData/{id}', [StudentCourseController::class, 'getStudentCourses']);
 

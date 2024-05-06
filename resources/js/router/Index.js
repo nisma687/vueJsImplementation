@@ -83,12 +83,18 @@ const routes = [
         name:"EditProfile",
         component: () => import('@/pages/EditProfile.vue')
 
+      },
+      {
+        path:'courses',
+        name:'Courses',
+        component: () => import('@/pages/Courses.vue')
+      },
+      
+      {
+        path:"cart",
+        name:"Cart",
+        component: () => import('@/pages/Cart.vue')
       }
-      // {
-      //   path: 'settings',
-      //   name: 'Settings',
-      //   component: () => import('@/pages/Settings.vue')
-      // },
      
     ]
   }

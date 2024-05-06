@@ -10,6 +10,11 @@
         </div> -->
         
     </div>
+    <div class=" mt-2 mb-2">
+        <Carousel/>
+        
+        
+    </div>
     <div class="m-5 grid grid-cols-3 gap-2 ">
         <!-- v-for="index in 4"
       :key="index" for loop --> 
@@ -45,6 +50,7 @@ import CustomButton from '@/components/buttons/CustomButton.vue';
 import { ref } from 'vue';
 import Card from '../components/cards/Card.vue';
 import BarChart from '../components/carts/BarChart.vue';
+import Carousel from '../components/Carousel/Carousel.vue';
 
 const cardTitle = ref('');
 const cardDescription = ref('');

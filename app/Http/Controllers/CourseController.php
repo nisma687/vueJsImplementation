@@ -12,8 +12,11 @@ class CourseController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $courses = Course::all();
+    {   
+        // $courses = Course::all(); // get all courses
+        // $courses = Course::onlyTrashed()->get(); // get only trashed courses
+        // $courses = Course::withTrashed()->get(); // get all courses including trashed courses
+        $courses = Course::withTrashed()->get();
         if ($courses->isEmpty()) {
             return response()->json([
                 'message' => 'No courses found'
@@ -118,11 +121,51 @@ class CourseController extends Controller
         
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
-        //
+        $course = Course::find($id);
+        if (!$course) {
+            return response()->json([
+                'message' => 'Course not found'
+            ]);
+        }
+        $course->delete();
+        return response()->json([
+            'message' => 'Course deleted successfully'
+        ]);
     }
+    public function restore(string $id)
+    {
+        $course = Course::withTrashed()->find($id);
+        if (!$course) {
+            return response()->json([
+                'message' => 'Course not found'
+            ]);
+        }
+        $course->restore();
+        return response()->json([
+            'message' => 'Course restored successfully'
+        ]);
+    }
+    public function DeleteAndRestore(string $id)
+    {
+        $course = Course::withTrashed()->find($id);
+        if (!$course) {
+            return response()->json([
+                'message' => 'Course not found'
+            ]);
+        }
+        if ($course->trashed()) {
+            $course->restore();
+            return response()->json([
+                'message' => 'Course restored successfully'
+            ]);
+        }
+        $course->delete();
+        return response()->json([
+            'message' => 'Course deleted successfully'
+        ]);
+    }
+    
 }

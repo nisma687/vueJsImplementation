@@ -126,12 +126,23 @@ var routes = [{
         return _interopRequireWildcard(require('@/pages/EditProfile.vue'));
       });
     }
-  } // {
-  //   path: 'settings',
-  //   name: 'Settings',
-  //   component: () => import('@/pages/Settings.vue')
-  // },
-  ]
+  }, {
+    path: 'courses',
+    name: 'Courses',
+    component: function component() {
+      return Promise.resolve().then(function () {
+        return _interopRequireWildcard(require('@/pages/Courses.vue'));
+      });
+    }
+  }, {
+    path: "cart",
+    name: "Cart",
+    component: function component() {
+      return Promise.resolve().then(function () {
+        return _interopRequireWildcard(require('@/pages/Cart.vue'));
+      });
+    }
+  }]
 }];
 var router = (0, _vueRouter.createRouter)({
   history: (0, _vueRouter.createWebHistory)(),
